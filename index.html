@@ -8,175 +8,259 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    /* ─── RESET & BASE ─── */
+    /* ════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: #1a2332; background: #fff; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Inter', sans-serif; color: #1a2332; background: #fff; overflow-x: hidden; }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
 
-    /* ─── TOKENS ─── */
+    /* ════════════════════════════════════════
+       DESIGN TOKENS
+    ════════════════════════════════════════ */
     :root {
-      --blue:    #0d3b73;
-      --blue2:   #1a56a8;
-      --orange:  #f97316;
-      --orange2: #ea6c0a;
-      --gray:    #f4f6f9;
-      --gray2:   #e2e8f0;
-      --text:    #1a2332;
-      --text2:   #4a5568;
-      --white:   #ffffff;
-      --radius:  10px;
-      --shadow:  0 4px 24px rgba(13,59,115,0.10);
+      --blue:   #0d3b73;
+      --blue2:  #1a56a8;
+      --orange: #f97316;
+      --orange2:#ea6c0a;
+      --gray:   #f4f6f9;
+      --gray2:  #e2e8f0;
+      --text:   #1a2332;
+      --text2:  #4a5568;
+      --white:  #ffffff;
+      --shadow: 0 4px 24px rgba(13,59,115,.10);
+      --radius: 12px;
     }
 
-    /* ─── UTILITY ─── */
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    /* ════════════════════════════════════════
+       UTILITY
+    ════════════════════════════════════════ */
+    .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 640px) { .container { padding: 0 24px; } }
+
     .btn {
-      display: inline-block; padding: 14px 32px; border-radius: 8px;
-      font-weight: 700; font-size: 1rem; cursor: pointer; transition: all .2s;
-      border: none; text-align: center;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 13px 24px; border-radius: 8px; font-weight: 700;
+      font-size: .95rem; cursor: pointer; transition: all .2s;
+      border: none; text-align: center; white-space: nowrap;
     }
+    @media (min-width: 640px) { .btn { padding: 14px 32px; font-size: 1rem; } }
+
     .btn-primary { background: var(--orange); color: #fff; }
     .btn-primary:hover { background: var(--orange2); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249,115,22,.35); }
     .btn-outline { background: transparent; color: var(--white); border: 2px solid var(--white); }
     .btn-outline:hover { background: var(--white); color: var(--blue); }
-    .badge { display: inline-block; background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: .5px; text-transform: uppercase; }
-    .section-label { font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
-    .section-title { font-size: 2.2rem; font-weight: 800; color: var(--blue); line-height: 1.2; }
-    .section-sub { font-size: 1.1rem; color: var(--text2); margin-top: 12px; max-width: 600px; }
-    .hidden { display: none !important; }
 
-    /* ─── LANG SWITCH ─── */
+    .badge {
+      display: inline-block; background: var(--orange); color: #fff;
+      font-size: .72rem; font-weight: 700; padding: 4px 12px;
+      border-radius: 20px; letter-spacing: .5px; text-transform: uppercase;
+    }
+    .section-label { font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .section-title { font-size: 1.75rem; font-weight: 800; color: var(--blue); line-height: 1.2; }
+    .section-sub { font-size: 1rem; color: var(--text2); margin-top: 10px; }
+
+    @media (min-width: 640px) { .section-title { font-size: 2rem; } }
+    @media (min-width: 960px) { .section-title { font-size: 2.2rem; } .section-sub { font-size: 1.1rem; } }
+
+    /* ════════════════════════════════════════
+       LANG SWITCH
+    ════════════════════════════════════════ */
     #lang-switch {
-      display: flex; gap: 4px; background: rgba(255,255,255,.12); padding: 4px; border-radius: 8px;
+      display: flex; gap: 3px;
+      background: rgba(255,255,255,.12); padding: 3px; border-radius: 7px;
     }
     .lang-btn {
-      padding: 5px 13px; border-radius: 6px; font-size: .8rem; font-weight: 700;
-      cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,.75); transition: all .15s;
+      padding: 5px 11px; border-radius: 5px; font-size: .75rem; font-weight: 700;
+      cursor: pointer; border: none; background: transparent;
+      color: rgba(255,255,255,.7); transition: all .15s;
     }
     .lang-btn.active { background: var(--orange); color: #fff; }
     .lang-btn:not(.active):hover { background: rgba(255,255,255,.15); color: #fff; }
 
-    /* ─── GALLERY ─── */
-    .gallery { padding: 96px 0; background: var(--gray); }
-    .gallery-header { text-align: center; margin-bottom: 56px; }
-    .gallery-header .section-sub { margin: 12px auto 0; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .gallery-card {
-      border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
-      background: #1c2130; transition: transform .25s, box-shadow .25s; cursor: pointer;
-    }
-    .gallery-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(13,59,115,.2); }
-    .gallery-card svg { width: 100%; display: block; }
-    .gallery-card-label {
-      background: #fff; padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .gallery-card-label .g-title { font-size: .9rem; font-weight: 700; color: var(--blue); }
-    .gallery-card-label .g-area { font-size: .78rem; color: var(--text2); }
-    @media (max-width: 900px) { .gallery-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
-
-    /* ─── HEADER ─── */
+    /* ════════════════════════════════════════
+       HEADER — mobile first
+    ════════════════════════════════════════ */
     header {
       background: var(--blue);
       position: sticky; top: 0; z-index: 1000;
-      box-shadow: 0 2px 16px rgba(0,0,0,.18);
+      box-shadow: 0 2px 16px rgba(0,0,0,.2);
     }
     .header-inner {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 24px; max-width: 1140px; margin: 0 auto;
+      padding: 12px 16px; gap: 8px;
     }
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo-svg { width: 48px; height: 48px; }
-    .logo-text { color: #fff; }
-    .logo-text .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; }
-    .logo-text .tagline { font-size: .7rem; font-weight: 500; opacity: .75; letter-spacing: 1px; text-transform: uppercase; }
-    nav { display: flex; align-items: center; gap: 32px; }
-    nav a { color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 500; transition: color .15s; }
-    nav a:hover { color: var(--orange); }
-    .header-cta { display: flex; align-items: center; gap: 16px; }
-    .phone-link { color: var(--orange); font-weight: 800; font-size: 1rem; white-space: nowrap; }
+    @media (min-width: 640px) { .header-inner { padding: 14px 24px; } }
+
+    /* Logo */
+    .logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-svg { width: 40px; height: 40px; }
+    @media (min-width: 640px) { .logo-svg { width: 48px; height: 48px; } }
+    .logo-text .brand { font-size: 1.3rem; font-weight: 900; letter-spacing: -.5px; color: #fff; }
+    .logo-text .tagline { font-size: .6rem; font-weight: 500; opacity: .7; letter-spacing: 1px; text-transform: uppercase; color: #fff; display: none; }
+    @media (min-width: 480px) { .logo-text .tagline { display: block; } }
+    @media (min-width: 640px) { .logo-text .brand { font-size: 1.5rem; } .logo-text .tagline { font-size: .65rem; } }
+
+    /* Nav — hidden on mobile, shown on desktop */
+    #main-nav {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: #0a2e5e; flex-direction: column; padding: 16px;
+      gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.25); z-index: 999;
+    }
+    #main-nav.open { display: flex; }
+    #main-nav a {
+      color: rgba(255,255,255,.85); font-size: .95rem; font-weight: 500;
+      padding: 10px 12px; border-radius: 6px; transition: background .15s;
+    }
+    #main-nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+    @media (min-width: 960px) {
+      #main-nav {
+        display: flex !important; flex-direction: row; position: static;
+        background: transparent; padding: 0; gap: 28px; box-shadow: none;
+      }
+      #main-nav a { padding: 0; font-size: .88rem; }
+      #main-nav a:hover { background: transparent; color: var(--orange); }
+    }
+
+    /* Header right */
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    @media (min-width: 640px) { .header-right { gap: 12px; } }
+
+    .phone-link { color: var(--orange); font-weight: 800; font-size: .85rem; white-space: nowrap; display: none; }
+    @media (min-width: 480px) { .phone-link { display: block; font-size: .9rem; } }
+    @media (min-width: 640px) { .phone-link { font-size: 1rem; } }
     .phone-link:hover { color: #ffad60; }
 
-    /* ─── HERO ─── */
+    .header-quote-btn { display: none; }
+    @media (min-width: 640px) { .header-quote-btn { display: inline-flex; } }
+
+    /* Hamburger */
+    .nav-toggle {
+      background: none; border: none; cursor: pointer; padding: 6px;
+      display: flex; flex-direction: column; gap: 5px; flex-shrink: 0;
+    }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .2s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (min-width: 960px) { .nav-toggle { display: none; } }
+
+    /* ════════════════════════════════════════
+       HERO — mobile first
+    ════════════════════════════════════════ */
     .hero {
-      background: linear-gradient(135deg, #0d3b73 0%, #1a4fa0 50%, #0d3b73 100%);
+      background: linear-gradient(145deg, #0b3268 0%, #1a4fa0 55%, #0d3b73 100%);
       position: relative; overflow: hidden;
-      padding: 90px 0 80px;
+      padding: 48px 0 56px;
     }
     .hero::before {
       content: '';
       position: absolute; inset: 0;
       background-image:
-        repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,.03) 80px, rgba(255,255,255,.03) 82px),
-        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,.03) 60px, rgba(255,255,255,.03) 62px);
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,.03) 60px, rgba(255,255,255,.03) 62px),
+        repeating-linear-gradient(0deg,  transparent, transparent 50px, rgba(255,255,255,.03) 50px, rgba(255,255,255,.03) 52px);
     }
-    /* asphalt texture stripes */
     .hero::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
-      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 40px, transparent 40px, transparent 80px);
-      opacity: .6;
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 36px, transparent 36px, transparent 72px);
+      opacity: .65;
     }
     .hero-inner {
       position: relative; z-index: 2;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-      max-width: 1140px; margin: 0 auto; padding: 0 24px;
+      display: flex; flex-direction: column; gap: 40px;
     }
-    .hero-content {}
-    .hero-badge { margin-bottom: 20px; }
-    .hero h1 { font-size: 3rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+    @media (min-width: 860px) {
+      .hero { padding: 80px 0; }
+      .hero-inner { flex-direction: row; align-items: center; gap: 56px; }
+      .hero-content { flex: 1; }
+      .hero-form-wrap { flex: 0 0 400px; }
+    }
+
+    .hero-badge { margin-bottom: 16px; }
+    .hero h1 { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 16px; }
     .hero h1 span { color: var(--orange); }
-    .hero p { font-size: 1.15rem; color: rgba(255,255,255,.82); line-height: 1.65; margin-bottom: 32px; }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .trust-row { display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap; }
-    .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.8); font-size: .88rem; }
-    .trust-item svg { flex-shrink: 0; }
+    @media (min-width: 480px) { .hero h1 { font-size: 2.4rem; } }
+    @media (min-width: 860px) { .hero h1 { font-size: 2.9rem; margin-bottom: 20px; } }
+    @media (min-width: 1060px) { .hero h1 { font-size: 3.2rem; } }
 
-    /* Quote Card */
+    .hero p { font-size: 1rem; color: rgba(255,255,255,.82); line-height: 1.65; margin-bottom: 24px; }
+    @media (min-width: 640px) { .hero p { font-size: 1.1rem; } }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-actions .btn { flex: 1 1 140px; }
+    @media (min-width: 480px) { .hero-actions .btn { flex: 0 0 auto; } }
+
+    .trust-row { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+    @media (min-width: 480px) { .trust-row { flex-direction: row; flex-wrap: wrap; gap: 14px; } }
+    .trust-item { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,.8); font-size: .85rem; }
+    .trust-item svg { flex-shrink: 0; width: 15px; height: 15px; }
+
+    /* ── Quote Card ── */
     .quote-card {
-      background: #fff; border-radius: 16px; padding: 36px 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      background: #fff; border-radius: 16px; padding: 24px 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
     }
-    .quote-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--blue); margin-bottom: 6px; }
-    .quote-card p { font-size: .88rem; color: var(--text2); margin-bottom: 24px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: .82rem; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+    @media (min-width: 480px) { .quote-card { padding: 32px 28px; } }
+    .quote-card .stars { color: #f59e0b; font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .quote-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--blue); margin-bottom: 4px; }
+    .quote-card > p { font-size: .84rem; color: var(--text2); margin-bottom: 20px; }
+    .form-group { margin-bottom: 13px; }
+    .form-group label { display: block; font-size: .8rem; font-weight: 600; color: var(--text2); margin-bottom: 5px; }
     .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray2);
-      border-radius: 8px; font-size: .95rem; font-family: inherit;
-      color: var(--text); background: #fff; transition: border .15s;
-      outline: none;
+      width: 100%; padding: 11px 13px; border: 1.5px solid var(--gray2);
+      border-radius: 8px; font-size: .93rem; font-family: inherit;
+      color: var(--text); background: #fff; transition: border .15s; outline: none;
+      -webkit-appearance: none;
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue2); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .quote-card .btn { width: 100%; margin-top: 8px; font-size: 1rem; padding: 15px; }
-    .form-note { font-size: .75rem; color: var(--text2); text-align: center; margin-top: 10px; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--blue2); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quote-card .btn { width: 100%; margin-top: 6px; }
+    .form-note { font-size: .72rem; color: var(--text2); text-align: center; margin-top: 8px; }
 
-    /* ─── TRUST BAR ─── */
-    .trust-bar { background: var(--gray); padding: 28px 0; border-bottom: 1px solid var(--gray2); }
+    /* ════════════════════════════════════════
+       TRUST BAR — mobile first
+    ════════════════════════════════════════ */
+    .trust-bar { background: var(--gray); padding: 24px 0; border-bottom: 1px solid var(--gray2); }
     .trust-bar-inner {
-      display: flex; justify-content: space-around; align-items: center;
-      flex-wrap: wrap; gap: 24px;
-      max-width: 1140px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; text-align: center;
     }
-    .trust-stat { text-align: center; }
-    .trust-stat .number { font-size: 2rem; font-weight: 900; color: var(--blue); line-height: 1; }
+    @media (min-width: 640px) { .trust-bar-inner { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) {
+      .trust-bar-inner {
+        display: flex; justify-content: space-around; align-items: center; gap: 0;
+      }
+      .trust-divider { width: 1px; height: 44px; background: var(--gray2); }
+    }
+    .trust-divider { display: none; }
+    .trust-stat .number { font-size: 1.7rem; font-weight: 900; color: var(--blue); line-height: 1; }
     .trust-stat .number span { color: var(--orange); }
-    .trust-stat .label { font-size: .82rem; color: var(--text2); margin-top: 4px; font-weight: 500; }
-    .divider { width: 1px; height: 48px; background: var(--gray2); }
+    @media (min-width: 640px) { .trust-stat .number { font-size: 2rem; } }
+    .trust-stat .label { font-size: .75rem; color: var(--text2); margin-top: 4px; font-weight: 500; }
+    @media (min-width: 640px) { .trust-stat .label { font-size: .82rem; } }
 
-    /* ─── SERVICES ─── */
-    .services { padding: 96px 0; }
-    .services-header { text-align: center; margin-bottom: 60px; }
-    .services-header .section-sub { margin: 12px auto 0; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    /* ════════════════════════════════════════
+       SERVICES — mobile first
+    ════════════════════════════════════════ */
+    .services { padding: 64px 0; }
+    @media (min-width: 640px) { .services { padding: 80px 0; } }
+    @media (min-width: 960px) { .services { padding: 96px 0; } }
+
+    .services-header { text-align: center; margin-bottom: 40px; }
+    @media (min-width: 640px) { .services-header { margin-bottom: 52px; } }
+    .services-header .section-sub { margin: 10px auto 0; max-width: 580px; }
+
+    .services-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 560px) { .services-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+    @media (min-width: 900px) { .services-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
     .service-card {
       background: #fff; border: 1.5px solid var(--gray2); border-radius: 14px;
-      padding: 36px 28px; transition: all .2s; position: relative; overflow: hidden;
+      padding: 24px 20px; transition: all .2s; position: relative; overflow: hidden;
     }
+    @media (min-width: 640px) { .service-card { padding: 32px 24px; } }
     .service-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
       background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .3s;
@@ -184,226 +268,302 @@
     .service-card:hover { border-color: var(--blue2); box-shadow: var(--shadow); transform: translateY(-4px); }
     .service-card:hover::before { transform: scaleX(1); }
     .service-icon {
-      width: 56px; height: 56px; border-radius: 12px;
+      width: 50px; height: 50px; border-radius: 11px;
       background: linear-gradient(135deg, var(--blue), var(--blue2));
-      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
     }
-    .service-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
-    .service-card p { font-size: .9rem; color: var(--text2); line-height: 1.6; }
-    .service-price { margin-top: 16px; font-size: .9rem; font-weight: 700; color: var(--orange); }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+    .service-card p { font-size: .87rem; color: var(--text2); line-height: 1.6; }
+    .service-price { margin-top: 14px; font-size: .88rem; font-weight: 700; color: var(--orange); }
 
-    /* ─── HOW IT WORKS ─── */
-    .how { background: var(--blue); padding: 96px 0; }
+    /* ════════════════════════════════════════
+       GALLERY — mobile first
+    ════════════════════════════════════════ */
+    .gallery { padding: 64px 0; background: var(--gray); }
+    @media (min-width: 640px) { .gallery { padding: 80px 0; } }
+    @media (min-width: 960px) { .gallery { padding: 96px 0; } }
+
+    .gallery-header { text-align: center; margin-bottom: 40px; }
+    .gallery-header .section-sub { margin: 10px auto 0; max-width: 580px; }
+
+    .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 560px) { .gallery-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+    @media (min-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+    .gallery-card {
+      border-radius: 14px; overflow: hidden; box-shadow: var(--shadow);
+      background: #1c2130; transition: transform .25s, box-shadow .25s;
+    }
+    .gallery-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(13,59,115,.22); }
+    .gallery-card svg { width: 100%; display: block; }
+    .gallery-card-label {
+      background: #fff; padding: 12px 16px;
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .gallery-card-label .g-title { font-size: .85rem; font-weight: 700; color: var(--blue); }
+    .gallery-card-label .g-area { font-size: .75rem; color: var(--text2); white-space: nowrap; }
+
+    /* ════════════════════════════════════════
+       HOW IT WORKS — mobile first
+    ════════════════════════════════════════ */
+    .how { background: var(--blue); padding: 64px 0; }
+    @media (min-width: 640px) { .how { padding: 80px 0; } }
+    @media (min-width: 960px) { .how { padding: 96px 0; } }
+
     .how .section-label { color: var(--orange); }
     .how .section-title { color: #fff; }
     .how .section-sub { color: rgba(255,255,255,.75); }
-    .how-header { margin-bottom: 60px; }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative; }
-    .steps::before {
-      content: '';
-      position: absolute; top: 36px; left: calc(12.5% + 28px); right: calc(12.5% + 28px);
-      height: 2px; background: rgba(255,255,255,.15);
+    .how-header { margin-bottom: 40px; }
+    @media (min-width: 640px) { .how-header { margin-bottom: 52px; } }
+
+    .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    @media (min-width: 860px) {
+      .steps { grid-template-columns: repeat(4, 1fr); gap: 32px; }
     }
     .step { text-align: center; }
     .step-num {
-      width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--orange);
+      width: 60px; height: 60px; border-radius: 50%; border: 3px solid var(--orange);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; font-weight: 900; color: var(--orange);
-      background: rgba(249,115,22,.1); margin: 0 auto 20px; position: relative; z-index: 2;
+      font-size: 1.3rem; font-weight: 900; color: var(--orange);
+      background: rgba(249,115,22,.1); margin: 0 auto 16px;
     }
-    .step h4 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .step p { font-size: .85rem; color: rgba(255,255,255,.65); line-height: 1.55; }
+    @media (min-width: 640px) { .step-num { width: 70px; height: 70px; font-size: 1.5rem; } }
+    .step h4 { font-size: .95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .step p { font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.55; }
+    @media (min-width: 640px) { .step h4 { font-size: 1rem; } .step p { font-size: .85rem; } }
 
-    /* ─── WHY US ─── */
-    .why { padding: 96px 0; background: var(--gray); }
-    .why-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    /* ════════════════════════════════════════
+       WHY US — mobile first
+    ════════════════════════════════════════ */
+    .why { padding: 64px 0; background: var(--gray); }
+    @media (min-width: 640px) { .why { padding: 80px 0; } }
+    @media (min-width: 960px) { .why { padding: 96px 0; } }
+
+    .why-inner { display: flex; flex-direction: column; gap: 40px; }
+    @media (min-width: 900px) { .why-inner { flex-direction: row; gap: 72px; align-items: center; } }
+
     .why-visual {
       background: linear-gradient(135deg, #0d3b73, #1a56a8);
-      border-radius: 20px; padding: 48px 40px; color: #fff;
+      border-radius: 18px; padding: 32px 24px; color: #fff;
       position: relative; overflow: hidden;
     }
+    @media (min-width: 900px) { .why-visual { flex: 0 0 380px; padding: 40px 36px; } }
     .why-visual::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
-      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 30px, transparent 30px, transparent 60px);
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 5px;
+      background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 28px, transparent 28px, transparent 56px);
     }
-    .why-visual h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 20px; }
-    .why-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .why-stat { background: rgba(255,255,255,.08); border-radius: 12px; padding: 20px; text-align: center; }
-    .why-stat .n { font-size: 2rem; font-weight: 900; color: var(--orange); }
-    .why-stat .l { font-size: .8rem; color: rgba(255,255,255,.7); margin-top: 4px; }
-    .benefits { display: flex; flex-direction: column; gap: 24px; }
-    .benefit { display: flex; gap: 16px; align-items: flex-start; }
+    .why-visual h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 20px; }
+    @media (min-width: 640px) { .why-visual h3 { font-size: 1.4rem; } }
+    .why-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .why-stat { background: rgba(255,255,255,.08); border-radius: 10px; padding: 16px; text-align: center; }
+    .why-stat .n { font-size: 1.7rem; font-weight: 900; color: var(--orange); }
+    @media (min-width: 640px) { .why-stat .n { font-size: 2rem; } }
+    .why-stat .l { font-size: .75rem; color: rgba(255,255,255,.7); margin-top: 3px; }
+
+    .why-benefits { flex: 1; }
+    .benefits { display: flex; flex-direction: column; gap: 20px; }
+    @media (min-width: 640px) { .benefits { gap: 24px; } }
+    .benefit { display: flex; gap: 14px; align-items: flex-start; }
     .benefit-icon {
-      width: 44px; height: 44px; border-radius: 10px;
+      width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
       background: linear-gradient(135deg, var(--orange), var(--orange2));
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
     }
-    .benefit h4 { font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
-    .benefit p { font-size: .88rem; color: var(--text2); line-height: 1.55; }
+    .benefit h4 { font-size: .95rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+    .benefit p { font-size: .85rem; color: var(--text2); line-height: 1.55; }
 
-    /* ─── TESTIMONIALS ─── */
-    .testimonials { padding: 96px 0; }
-    .testimonials-header { text-align: center; margin-bottom: 56px; }
-    .stars { color: #f59e0b; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 12px; }
-    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    /* ════════════════════════════════════════
+       TESTIMONIALS — mobile first
+    ════════════════════════════════════════ */
+    .testimonials { padding: 64px 0; }
+    @media (min-width: 640px) { .testimonials { padding: 80px 0; } }
+    @media (min-width: 960px) { .testimonials { padding: 96px 0; } }
+
+    .testimonials-header { text-align: center; margin-bottom: 40px; }
+    .stars { color: #f59e0b; font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .rating-note { color: var(--text2); font-size: .88rem; }
+
+    .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 640px) { .reviews-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+    @media (min-width: 900px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
     .review-card {
-      background: #fff; border: 1.5px solid var(--gray2); border-radius: 14px; padding: 28px 24px;
-      position: relative;
+      background: #fff; border: 1.5px solid var(--gray2); border-radius: 14px;
+      padding: 22px 20px; position: relative;
     }
-    .review-card::before { content: '"'; position: absolute; top: 16px; right: 20px; font-size: 4rem; color: var(--gray2); font-family: Georgia, serif; line-height: 1; }
-    .review-text { font-size: .93rem; color: var(--text2); line-height: 1.65; margin-bottom: 20px; font-style: italic; }
-    .review-author { display: flex; align-items: center; gap: 12px; }
-    .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--blue2)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 1rem; flex-shrink: 0; }
-    .author-info .name { font-weight: 700; font-size: .9rem; color: var(--text); }
-    .author-info .location { font-size: .78rem; color: var(--text2); }
-    .review-stars { color: #f59e0b; font-size: .85rem; }
+    @media (min-width: 640px) { .review-card { padding: 28px 24px; } }
+    .review-card::before {
+      content: '"'; position: absolute; top: 14px; right: 18px;
+      font-size: 3.5rem; color: var(--gray2); font-family: Georgia, serif; line-height: 1;
+    }
+    .review-stars { color: #f59e0b; font-size: .85rem; margin-bottom: 10px; }
+    .review-text { font-size: .88rem; color: var(--text2); line-height: 1.65; margin-bottom: 18px; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 10px; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: .9rem;
+    }
+    .author-info .name { font-weight: 700; font-size: .88rem; color: var(--text); }
+    .author-info .location { font-size: .75rem; color: var(--text2); }
 
-    /* ─── AREAS ─── */
-    .areas { background: var(--gray); padding: 80px 0; }
-    .areas-header { text-align: center; margin-bottom: 48px; }
-    .areas-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    /* ════════════════════════════════════════
+       AREAS — mobile first
+    ════════════════════════════════════════ */
+    .areas { background: var(--gray); padding: 56px 0; }
+    @media (min-width: 640px) { .areas { padding: 72px 0; } }
+
+    .areas-header { text-align: center; margin-bottom: 36px; }
+    .areas-header .section-sub { margin: 10px auto 0; max-width: 560px; text-align: center; }
+
+    .areas-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
     .area-pill {
-      background: #fff; border: 1.5px solid var(--gray2); border-radius: 30px;
-      padding: 10px 22px; font-size: .9rem; font-weight: 600; color: var(--blue);
-      display: flex; align-items: center; gap: 8px; transition: all .15s;
+      background: #fff; border: 1.5px solid var(--gray2); border-radius: 28px;
+      padding: 9px 18px; font-size: .85rem; font-weight: 600; color: var(--blue);
+      display: flex; align-items: center; gap: 6px; transition: all .15s;
     }
     .area-pill:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .area-pill svg { width: 14px; height: 14px; }
+    .area-pill svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-    /* ─── CTA SECTION ─── */
+    /* ════════════════════════════════════════
+       CTA SECTION — mobile first
+    ════════════════════════════════════════ */
     .cta-section {
       background: linear-gradient(135deg, var(--blue) 0%, #1a4fa0 100%);
-      padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+      padding: 64px 0; text-align: center; position: relative; overflow: hidden;
     }
+    @media (min-width: 640px) { .cta-section { padding: 80px 0; } }
     .cta-section::before {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.02) 40px, rgba(255,255,255,.02) 80px);
     }
-    .cta-section h2 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 16px; position: relative; z-index: 2; }
+    .cta-section h2 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 14px; position: relative; z-index: 2; }
     .cta-section h2 span { color: var(--orange); }
-    .cta-section p { font-size: 1.1rem; color: rgba(255,255,255,.8); margin-bottom: 36px; position: relative; z-index: 2; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
-    .cta-phone { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 1.4rem; font-weight: 800; }
-    .cta-phone-icon { background: var(--orange); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    @media (min-width: 640px) { .cta-section h2 { font-size: 2.3rem; } }
+    @media (min-width: 860px) { .cta-section h2 { font-size: 2.6rem; } }
+    .cta-section > .container > p { font-size: 1rem; color: rgba(255,255,255,.8); margin-bottom: 32px; position: relative; z-index: 2; }
+    @media (min-width: 640px) { .cta-section > .container > p { font-size: 1.1rem; } }
 
-    /* ─── FOOTER ─── */
-    footer { background: #0a2a55; padding: 56px 0 24px; color: rgba(255,255,255,.7); }
-    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
-    .footer-brand .logo-text .brand { font-size: 1.3rem; }
-    .footer-brand p { font-size: .88rem; line-height: 1.65; margin-top: 16px; color: rgba(255,255,255,.55); }
-    .footer-col h4 { font-size: .85rem; font-weight: 700; color: #fff; margin-bottom: 16px; letter-spacing: .5px; text-transform: uppercase; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col ul li a { font-size: .88rem; color: rgba(255,255,255,.55); transition: color .15s; }
+    .cta-actions {
+      display: flex; flex-direction: column; gap: 16px;
+      align-items: center; position: relative; z-index: 2;
+    }
+    @media (min-width: 560px) { .cta-actions { flex-direction: row; justify-content: center; } }
+
+    .cta-phone { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 1.2rem; font-weight: 800; }
+    @media (min-width: 640px) { .cta-phone { font-size: 1.4rem; } }
+    .cta-phone-icon {
+      background: var(--orange); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER — mobile first
+    ════════════════════════════════════════ */
+    footer { background: #0a2a55; padding: 48px 0 20px; color: rgba(255,255,255,.7); }
+
+    .footer-inner {
+      display: grid; grid-template-columns: 1fr; gap: 32px; margin-bottom: 36px;
+    }
+    @media (min-width: 560px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px 40px; } }
+    @media (min-width: 860px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; } }
+
+    .footer-brand .logo-text .brand { font-size: 1.25rem; color: #fff; }
+    .footer-brand p { font-size: .85rem; line-height: 1.65; margin-top: 14px; color: rgba(255,255,255,.5); }
+    .footer-col h4 { font-size: .8rem; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: .5px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color .15s; }
     .footer-col ul li a:hover { color: var(--orange); }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .footer-bottom p { font-size: .8rem; color: rgba(255,255,255,.4); }
-    .license-badge { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 6px 14px; font-size: .78rem; color: rgba(255,255,255,.6); }
 
-    /* ─── MOBILE NAV TOGGLE ─── */
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: all .2s; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .quote-card { max-width: 500px; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .steps::before { display: none; }
-      .why-inner { grid-template-columns: 1fr; }
-      .reviews-grid { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-      nav { display: none; }
-      .nav-toggle { display: block; }
-      .hero h1 { font-size: 2.2rem; }
-      .section-title { font-size: 1.8rem; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px;
+      display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;
     }
-    @media (max-width: 600px) {
-      .services-grid { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .trust-bar-inner { gap: 16px; }
-      .divider { display: none; }
-      .footer-inner { grid-template-columns: 1fr; }
-      #lang-switch { top: 12px; right: 12px; }
-      .form-row { grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; } }
+    .footer-bottom p { font-size: .78rem; color: rgba(255,255,255,.4); }
+    .license-badge {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px; padding: 5px 12px; font-size: .75rem; color: rgba(255,255,255,.55);
+      white-space: nowrap;
     }
 
-    /* ─── NOTIFICATION ─── */
+    /* ════════════════════════════════════════
+       STICKY MOBILE CALL BAR
+    ════════════════════════════════════════ */
+    .sticky-phone {
+      display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9000;
+      background: var(--orange); color: #fff; text-align: center;
+      padding: 14px 16px; font-weight: 800; font-size: 1rem;
+      box-shadow: 0 -4px 16px rgba(0,0,0,.2);
+    }
+    @media (min-width: 860px) { .sticky-phone { display: none; } }
+
+    /* Extra bottom padding on mobile so sticky bar doesn't cover content */
+    @media (max-width: 859px) { footer { padding-bottom: 72px; } }
+
+    /* ════════════════════════════════════════
+       NOTIFICATION TOAST
+    ════════════════════════════════════════ */
     .notification {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      position: fixed; bottom: 80px; right: 16px; z-index: 9999;
       background: #fff; border-left: 4px solid var(--orange); border-radius: 10px;
-      padding: 16px 20px; box-shadow: 0 8px 32px rgba(0,0,0,.15);
-      display: flex; align-items: center; gap: 12px; max-width: 320px;
+      padding: 14px 18px; box-shadow: 0 8px 32px rgba(0,0,0,.15);
+      display: flex; align-items: center; gap: 12px; max-width: 300px;
       transform: translateX(400px); transition: transform .4s cubic-bezier(.175,.885,.32,1.275);
     }
+    @media (min-width: 860px) { .notification { bottom: 24px; right: 24px; max-width: 320px; } }
     .notification.show { transform: translateX(0); }
-    .notif-icon { font-size: 1.4rem; }
-    .notif-text .title { font-weight: 700; font-size: .9rem; color: var(--text); }
-    .notif-text .sub { font-size: .8rem; color: var(--text2); margin-top: 2px; }
-
-    /* ─── STICKY PHONE MOBILE ─── */
-    .sticky-phone {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9000;
-      background: var(--orange); color: #fff; text-align: center;
-      padding: 16px; font-weight: 800; font-size: 1.1rem;
-    }
-    @media (max-width: 600px) { .sticky-phone { display: block; } }
+    .notif-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .notif-text .title { font-weight: 700; font-size: .88rem; color: var(--text); }
+    .notif-text .sub { font-size: .78rem; color: var(--text2); margin-top: 2px; }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ══════════════ HEADER ══════════════ -->
 <header>
-  <div class="header-inner">
-    <!-- LOGO -->
+  <div class="header-inner container">
     <a href="#" class="logo">
       <svg class="logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Road shape -->
         <rect x="2" y="30" width="44" height="14" rx="3" fill="#f97316"/>
-        <!-- Center line dashes -->
         <rect x="6" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
         <rect x="20" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
         <rect x="34" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
-        <!-- LTS Letters -->
-        <text x="5" y="25" font-family="Inter, sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-0.5">LTS</text>
-        <!-- Small line mark above -->
+        <text x="5" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-0.5">LTS</text>
         <rect x="2" y="27" width="44" height="2" rx="1" fill="#f97316" opacity=".4"/>
       </svg>
       <div class="logo-text">
         <div class="brand">LTS</div>
-        <div class="tagline" data-en="Line & Traffic Solutions" data-es="Line & Traffic Solutions">Line & Traffic Solutions</div>
+        <div class="tagline">Line & Traffic Solutions</div>
       </div>
     </a>
 
-    <!-- NAV -->
     <nav id="main-nav">
       <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+      <a href="#gallery" data-en="Our Work" data-es="Nuestro trabajo">Our Work</a>
       <a href="#how" data-en="How It Works" data-es="Cómo funciona">How It Works</a>
       <a href="#why" data-en="Why LTS" data-es="¿Por qué LTS?">Why LTS</a>
-      <a href="#areas" data-en="Service Areas" data-es="Cobertura">Service Areas</a>
-      <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
+      <a href="#areas" data-en="Areas" data-es="Cobertura">Areas</a>
     </nav>
 
-    <div class="header-cta">
+    <div class="header-right">
       <div id="lang-switch">
         <button class="lang-btn active" id="btn-en">EN</button>
         <button class="lang-btn" id="btn-es">ES</button>
       </div>
       <a href="tel:+14053143025" class="phone-link">📞 (405) 314-3025</a>
-      <a href="#contact" class="btn btn-primary" data-en="Free Quote" data-es="Cotización Gratis">Free Quote</a>
+      <a href="#contact" class="btn btn-primary header-quote-btn" data-en="Free Quote" data-es="Cotización Gratis">Free Quote</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
     <div class="hero-content">
       <div class="hero-badge">
         <span class="badge" data-en="🏆 #1 Rated in Miami-Dade" data-es="🏆 #1 en Miami-Dade">🏆 #1 Rated in Miami-Dade</span>
@@ -411,203 +571,171 @@
       <h1 data-en="Your Driveway,<br><span>Perfectly Lined.</span>" data-es="Tu entrada,<br><span>perfectamente marcada.</span>">
         Your Driveway,<br><span>Perfectly Lined.</span>
       </h1>
-      <p data-en="Professional striping and pavement marking for Miami homeowners. Clean lines, fast service, results that last. Licensed & insured in Miami-Dade and Broward." data-es="Demarcación profesional de pavimento para propietarios de viviendas en Miami. Líneas perfectas, servicio rápido, resultados duraderos. Licenciados y asegurados en Miami-Dade y Broward.">
+      <p data-en="Professional striping and pavement marking for Miami homeowners. Clean lines, fast service, results that last. Licensed & insured in Miami-Dade and Broward." data-es="Demarcación profesional de pavimento para propietarios en Miami. Líneas perfectas, servicio rápido, resultados duraderos. Licenciados y asegurados en Miami-Dade y Broward.">
         Professional striping and pavement marking for Miami homeowners. Clean lines, fast service, results that last. Licensed & insured in Miami-Dade and Broward.
       </p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary" data-en="Get Free Quote →" data-es="Cotización Gratis →">Get Free Quote →</a>
-        <a href="tel:+13055550198" class="btn btn-outline" data-en="Call Now" data-es="Llamar ahora">Call Now</a>
+        <a href="tel:+14053143025" class="btn btn-outline" data-en="Call Now" data-es="Llamar ahora">Call Now</a>
       </div>
       <div class="trust-row">
         <div class="trust-item">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
           <span data-en="Licensed & Insured" data-es="Licenciados y asegurados">Licensed & Insured</span>
         </div>
         <div class="trust-item">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
           <span data-en="Same-week scheduling" data-es="Agenda en la misma semana">Same-week scheduling</span>
         </div>
         <div class="trust-item">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f97316" stroke-width="2" stroke-linecap="round"/></svg>
           <span data-en="Free on-site estimate" data-es="Presupuesto gratuito en sitio">Free on-site estimate</span>
         </div>
       </div>
     </div>
 
-    <!-- QUOTE FORM -->
-    <div class="quote-card" id="contact">
-      <div class="stars">★★★★★</div>
-      <h3 data-en="Get Your Free Quote" data-es="Obtén tu cotización gratis">Get Your Free Quote</h3>
-      <p data-en="Response within 24 hours. No obligation." data-es="Respuesta en 24 horas. Sin compromiso.">Response within 24 hours. No obligation.</p>
-      <form id="quote-form" onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label data-en="First Name" data-es="Nombre">First Name</label>
-            <input type="text" required placeholder="John" />
+    <!-- QUOTE CARD -->
+    <div class="hero-form-wrap">
+      <div class="quote-card" id="contact">
+        <div class="stars">★★★★★</div>
+        <h3 data-en="Get Your Free Quote" data-es="Obtén tu cotización gratis">Get Your Free Quote</h3>
+        <p data-en="Response within 24 hours. No obligation." data-es="Respuesta en 24 horas. Sin compromiso.">Response within 24 hours. No obligation.</p>
+        <form id="quote-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-en="First Name" data-es="Nombre">First Name</label>
+              <input type="text" required placeholder="John" autocomplete="given-name"/>
+            </div>
+            <div class="form-group">
+              <label data-en="Last Name" data-es="Apellido">Last Name</label>
+              <input type="text" required placeholder="Smith" autocomplete="family-name"/>
+            </div>
           </div>
           <div class="form-group">
-            <label data-en="Last Name" data-es="Apellido">Last Name</label>
-            <input type="text" required placeholder="Smith" />
+            <label data-en="Phone Number" data-es="Teléfono">Phone Number</label>
+            <input type="tel" required placeholder="(405) 000-0000" autocomplete="tel"/>
           </div>
-        </div>
-        <div class="form-group">
-          <label data-en="Phone Number" data-es="Teléfono">Phone Number</label>
-          <input type="tel" required placeholder="(305) 000-0000" />
-        </div>
-        <div class="form-group">
-          <label data-en="Neighborhood / Address" data-es="Vecindario / Dirección">Neighborhood / Address</label>
-          <input type="text" required placeholder="Coral Gables, Miami FL" />
-        </div>
-        <div class="form-group">
-          <label data-en="Service Needed" data-es="Servicio requerido">Service Needed</label>
-          <select>
-            <option data-en="Driveway Line Striping" data-es="Líneas en driveway">Driveway Line Striping</option>
-            <option data-en="Parking Space Marking" data-es="Demarcación de estacionamiento">Parking Space Marking</option>
-            <option data-en="Number / Letter Stencils" data-es="Stencils de números / letras">Number / Letter Stencils</option>
-            <option data-en="Curb Painting" data-es="Pintura de bordillos">Curb Painting</option>
-            <option data-en="Full Package (Coating + Striping)" data-es="Paquete completo (sellado + líneas)">Full Package (Coating + Striping)</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" data-en="Request Free Quote →" data-es="Solicitar cotización gratis →">Request Free Quote →</button>
-      </form>
-      <p class="form-note" data-en="🔒 Your info is safe. We never share your data." data-es="🔒 Tu info está segura. Nunca compartimos tus datos.">🔒 Your info is safe. We never share your data.</p>
+          <div class="form-group">
+            <label data-en="Neighborhood / Address" data-es="Vecindario / Dirección">Neighborhood / Address</label>
+            <input type="text" required placeholder="Coral Gables, Miami FL" autocomplete="street-address"/>
+          </div>
+          <div class="form-group">
+            <label data-en="Service Needed" data-es="Servicio requerido">Service Needed</label>
+            <select>
+              <option data-en="Driveway Line Striping" data-es="Líneas en driveway">Driveway Line Striping</option>
+              <option data-en="Parking Space Marking" data-es="Demarcación de estacionamiento">Parking Space Marking</option>
+              <option data-en="Number / Letter Stencils" data-es="Stencils de números / letras">Number / Letter Stencils</option>
+              <option data-en="Curb Painting" data-es="Pintura de bordillos">Curb Painting</option>
+              <option data-en="Full Package (Coating + Striping)" data-es="Paquete completo (sellado + líneas)">Full Package (Coating + Striping)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" data-en="Request Free Quote →" data-es="Solicitar cotización gratis →">Request Free Quote →</button>
+        </form>
+        <p class="form-note" data-en="🔒 Your info is safe. We never share your data." data-es="🔒 Tu info está segura. Nunca compartimos tus datos.">🔒 Your info is safe. We never share your data.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TRUST BAR -->
+<!-- ══════════════ TRUST BAR ══════════════ -->
 <section class="trust-bar">
-  <div class="trust-bar-inner">
-    <div class="trust-stat">
-      <div class="number">500<span>+</span></div>
-      <div class="label" data-en="Driveways Completed" data-es="Entradas completadas">Driveways Completed</div>
-    </div>
-    <div class="divider"></div>
-    <div class="trust-stat">
-      <div class="number"><span>★</span> 4.9</div>
-      <div class="label" data-en="Average Rating (Google)" data-es="Calificación promedio (Google)">Average Rating (Google)</div>
-    </div>
-    <div class="divider"></div>
-    <div class="trust-stat">
-      <div class="number">10<span>+</span></div>
-      <div class="label" data-en="Years in Miami" data-es="Años en Miami">Years in Miami</div>
-    </div>
-    <div class="divider"></div>
-    <div class="trust-stat">
-      <div class="number">24<span>h</span></div>
-      <div class="label" data-en="Quote Response Time" data-es="Tiempo de respuesta">Quote Response Time</div>
-    </div>
-    <div class="divider"></div>
-    <div class="trust-stat">
-      <div class="number">100<span>%</span></div>
-      <div class="label" data-en="Satisfaction Guaranteed" data-es="Satisfacción garantizada">Satisfaction Guaranteed</div>
+  <div class="container">
+    <div class="trust-bar-inner">
+      <div class="trust-stat">
+        <div class="number">500<span>+</span></div>
+        <div class="label" data-en="Driveways Completed" data-es="Entradas completadas">Driveways Completed</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat">
+        <div class="number"><span>★</span> 4.9</div>
+        <div class="label" data-en="Google Rating" data-es="Calificación Google">Google Rating</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat">
+        <div class="number">10<span>+</span></div>
+        <div class="label" data-en="Years in Miami" data-es="Años en Miami">Years in Miami</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat">
+        <div class="number">24<span>h</span></div>
+        <div class="label" data-en="Quote Response" data-es="Tiempo de respuesta">Quote Response</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat">
+        <div class="number">100<span>%</span></div>
+        <div class="label" data-en="Satisfaction Guaranteed" data-es="Satisfacción garantizada">Satisfaction Guaranteed</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- ══════════════ SERVICES ══════════════ -->
 <section class="services" id="services">
   <div class="container">
     <div class="services-header">
       <div class="section-label" data-en="What We Do" data-es="Qué hacemos">What We Do</div>
       <h2 class="section-title" data-en="Services for Your Home" data-es="Servicios para tu hogar">Services for Your Home</h2>
-      <p class="section-sub" data-en="From simple line markings to full driveway transformations. Every job is done right — the first time." data-es="Desde líneas simples hasta transformaciones completas del driveway. Cada trabajo se hace bien desde la primera vez.">From simple line markings to full driveway transformations. Every job is done right — the first time.</p>
+      <p class="section-sub" data-en="From simple line markings to full driveway transformations. Every job done right — the first time." data-es="Desde líneas simples hasta transformaciones completas. Cada trabajo se hace bien desde la primera vez.">From simple line markings to full driveway transformations. Every job done right — the first time.</p>
     </div>
     <div class="services-grid">
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M3 17h18M3 12h18M3 7h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M3 17h18M3 12h18M3 7h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div>
         <h3 data-en="Driveway Line Striping" data-es="Líneas en driveway">Driveway Line Striping</h3>
-        <p data-en="Crisp, straight lines that define your parking spaces, pedestrian paths, and driveway borders. Ideal for 1–4 car driveways." data-es="Líneas rectas y precisas que definen tus espacios de estacionamiento, caminos peatonales y bordes del driveway. Ideal para 1 a 4 autos.">Crisp, straight lines that define your parking spaces, pedestrian paths, and driveway borders. Ideal for 1–4 car driveways.</p>
+        <p data-en="Crisp, straight lines that define your parking spaces, pedestrian paths, and driveway borders. Ideal for 1–4 car driveways." data-es="Líneas rectas y precisas que definen tus espacios de estacionamiento, caminos peatonales y bordes. Ideal para 1 a 4 autos.">Crisp, straight lines that define your parking spaces, pedestrian paths, and driveway borders. Ideal for 1–4 car driveways.</p>
         <div class="service-price" data-en="Starting at $199" data-es="Desde $199">Starting at $199</div>
       </div>
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="2"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="white" stroke-width="2"/></svg></div>
         <h3 data-en="Parking Space Marking" data-es="Demarcación de estacionamiento">Parking Space Marking</h3>
-        <p data-en="Clearly marked spaces that maximize your driveway capacity. Perfect for homes with multiple vehicles or frequent guests." data-es="Espacios claramente demarcados que maximizan tu capacidad de estacionamiento. Ideal para hogares con varios vehículos o visitas frecuentes.">Clearly marked spaces that maximize your driveway capacity. Perfect for homes with multiple vehicles or frequent guests.</p>
+        <p data-en="Clearly marked spaces that maximize your driveway capacity. Perfect for homes with multiple vehicles or frequent guests." data-es="Espacios claramente demarcados que maximizan tu capacidad. Ideal para hogares con varios vehículos o visitas frecuentes.">Clearly marked spaces that maximize your driveway capacity. Perfect for homes with multiple vehicles or frequent guests.</p>
         <div class="service-price" data-en="Starting at $149/space" data-es="Desde $149/espacio">Starting at $149/space</div>
       </div>
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3 data-en="Number & Stencil Painting" data-es="Números y stencils">Number & Stencil Painting</h3>
-        <p data-en="House numbers, addresses, reserved signs, and custom stencils applied directly on the pavement with durable traffic paint." data-es="Números de casa, direcciones, señales de reservado y stencils personalizados aplicados directamente sobre el pavimento con pintura de tráfico duradera.">House numbers, addresses, reserved signs, and custom stencils applied directly on the pavement with durable traffic paint.</p>
+        <p data-en="House numbers, addresses, reserved signs, and custom stencils applied with durable traffic paint." data-es="Números de casa, direcciones, señales de reservado y stencils personalizados con pintura de tráfico duradera.">House numbers, addresses, reserved signs, and custom stencils applied with durable traffic paint.</p>
         <div class="service-price" data-en="Starting at $89" data-es="Desde $89">Starting at $89</div>
       </div>
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" stroke="white" stroke-width="2"/><path d="M4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z" stroke="white" stroke-width="2"/><path d="M16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke="white" stroke-width="2"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" stroke="white" stroke-width="2"/><path d="M4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z" stroke="white" stroke-width="2"/><path d="M16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" stroke="white" stroke-width="2"/></svg></div>
         <h3 data-en="Curb Painting" data-es="Pintura de bordillos">Curb Painting</h3>
-        <p data-en="Bright, reflective curb markings that increase visibility and enhance your home's curb appeal. Yellow, red, white — your choice." data-es="Demarcaciones de bordillo brillantes y reflectivas que aumentan la visibilidad y realzan el aspecto de tu hogar. Amarillo, rojo, blanco — tú eliges.">Bright, reflective curb markings that increase visibility and enhance your home's curb appeal. Yellow, red, white — your choice.</p>
+        <p data-en="Bright, reflective curb markings that increase visibility and enhance your home's curb appeal. Yellow, red, or white." data-es="Demarcaciones de bordillo brillantes y reflectivas que aumentan la visibilidad y realzan el aspecto de tu hogar.">Bright, reflective curb markings that increase visibility and enhance your home's curb appeal. Yellow, red, or white.</p>
         <div class="service-price" data-en="Starting at $129" data-es="Desde $129">Starting at $129</div>
       </div>
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3 data-en="Full Package: Seal + Stripe" data-es="Paquete completo: sellado + líneas">Full Package: Seal + Stripe</h3>
-        <p data-en="Protect and beautify. We sealcoat your asphalt driveway first, then apply fresh lines — best value for a complete transformation." data-es="Protege y embellece. Primero sellamos tu driveway de asfalto, luego aplicamos líneas frescas — el mejor valor para una transformación completa.">Protect and beautify. We sealcoat your asphalt driveway first, then apply fresh lines — best value for a complete transformation.</p>
+        <p data-en="Sealcoat your asphalt first, then apply fresh lines. Best value for a complete driveway transformation." data-es="Primero sellamos tu driveway de asfalto, luego aplicamos líneas frescas. El mejor valor para una transformación completa.">Sealcoat your asphalt first, then apply fresh lines. Best value for a complete driveway transformation.</p>
         <div class="service-price" data-en="Starting at $499" data-es="Desde $499">Starting at $499</div>
       </div>
-
       <div class="service-card">
-        <div class="service-icon">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
+        <div class="service-icon"><svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3 data-en="Decorative & Custom" data-es="Decorativo y personalizado">Decorative & Custom</h3>
-        <p data-en="Sports courts, basketball keys, hopscotch, logos, or any custom pattern. We turn driveways into functional and fun spaces." data-es="Canchas deportivas, llaves de baloncesto, rayuelas, logos o cualquier patrón personalizado. Convertimos entradas en espacios funcionales y divertidos.">Sports courts, basketball keys, hopscotch, logos, or any custom pattern. We turn driveways into functional and fun spaces.</p>
+        <p data-en="Sports courts, basketball keys, logos, or any custom pattern. We turn driveways into functional, fun spaces." data-es="Canchas deportivas, logos o cualquier patrón personalizado. Convertimos entradas en espacios funcionales y divertidos.">Sports courts, basketball keys, logos, or any custom pattern. We turn driveways into functional, fun spaces.</p>
         <div class="service-price" data-en="Custom quote" data-es="Cotización personalizada">Custom quote</div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery">
+<!-- ══════════════ GALLERY ══════════════ -->
+<section class="gallery" id="gallery">
   <div class="container">
     <div class="gallery-header">
       <div class="section-label" data-en="Our Work" data-es="Nuestro trabajo">Our Work</div>
-      <h2 class="section-title" data-en="Real Results from Miami Driveways" data-es="Resultados reales en driveways de Miami">Real Results from Miami Driveways</h2>
+      <h2 class="section-title" data-en="Real Results from Miami Driveways" data-es="Resultados reales en Miami">Real Results from Miami Driveways</h2>
       <p class="section-sub" data-en="Every project handled with precision and professional traffic-grade paint that lasts 3+ years in Florida's climate." data-es="Cada proyecto ejecutado con precisión y pintura de grado vial profesional que dura 3+ años en el clima de Florida.">Every project handled with precision and professional traffic-grade paint that lasts 3+ years in Florida's climate.</p>
     </div>
     <div class="gallery-grid">
-
-      <!-- Card 1: 2-Car Parking Striping -->
+      <!-- Card 1 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="asphalt1" patternUnits="userSpaceOnUse" width="4" height="4">
-              <rect width="4" height="4" fill="#1c2130"/>
-              <circle cx="1" cy="1" r=".5" fill="#242a38" opacity=".8"/>
-              <circle cx="3" cy="3" r=".4" fill="#14181f" opacity=".6"/>
-            </pattern>
-          </defs>
-          <rect width="400" height="240" fill="url(#asphalt1)"/>
-          <!-- Left parking space -->
+          <defs><pattern id="asp1" patternUnits="userSpaceOnUse" width="4" height="4"><rect width="4" height="4" fill="#1c2130"/><circle cx="1" cy="1" r=".5" fill="#242a38" opacity=".8"/><circle cx="3" cy="3" r=".4" fill="#14181f" opacity=".6"/></pattern></defs>
+          <rect width="400" height="240" fill="url(#asp1)"/>
           <rect x="28" y="24" width="155" height="172" fill="none" stroke="white" stroke-width="5" rx="2"/>
-          <!-- Right parking space -->
           <rect x="217" y="24" width="155" height="172" fill="none" stroke="white" stroke-width="5" rx="2"/>
-          <!-- Center divider line (dashed) -->
           <line x1="200" y1="24" x2="200" y2="196" stroke="white" stroke-width="3" stroke-dasharray="16,10" opacity=".5"/>
-          <!-- Bottom border line -->
-          <line x1="18" y1="210" x2="382" y2="210" stroke="white" stroke-width="3" opacity=".35"/>
-          <!-- Car silhouette hints (subtle) -->
-          <rect x="50" y="60" width="110" height="60" rx="8" fill="white" opacity=".04"/>
-          <rect x="240" y="60" width="110" height="60" rx="8" fill="white" opacity=".04"/>
-          <!-- Paint sheen overlay -->
-          <rect width="400" height="240" fill="url(#shine1)" opacity=".05"/>
-          <!-- Bottom bar -->
+          <line x1="18" y1="210" x2="382" y2="210" stroke="white" stroke-width="3" opacity=".3"/>
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">2-CAR PARKING STRIPING</text>
         </svg>
@@ -616,43 +744,19 @@
           <span class="g-area">Coral Gables, FL</span>
         </div>
       </div>
-
-      <!-- Card 2: Before / After -->
+      <!-- Card 2 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="asphalt2" patternUnits="userSpaceOnUse" width="4" height="4">
-              <rect width="4" height="4" fill="#1c2130"/>
-              <circle cx="2" cy="2" r=".5" fill="#242a38" opacity=".7"/>
-            </pattern>
-            <clipPath id="left-clip"><rect width="198" height="240"/></clipPath>
-            <clipPath id="right-clip"><rect x="202" width="198" height="240"/></clipPath>
-          </defs>
-          <!-- Background -->
-          <rect width="400" height="240" fill="url(#asphalt2)"/>
-          <!-- BEFORE side (left) - faded lines -->
-          <g clip-path="url(#left-clip)">
-            <rect x="20" y="30" width="158" height="160" fill="none" stroke="white" stroke-width="4" opacity=".22"/>
-            <line x1="20" y1="110" x2="178" y2="110" stroke="white" stroke-width="3" opacity=".15"/>
-            <line x1="99" y1="30" x2="99" y2="190" stroke="white" stroke-width="3" stroke-dasharray="12,9" opacity=".18"/>
-          </g>
-          <!-- AFTER side (right) - crisp lines -->
-          <g clip-path="url(#right-clip)">
-            <rect x="222" y="30" width="158" height="160" fill="none" stroke="white" stroke-width="5" opacity=".95"/>
-            <line x1="222" y1="110" x2="380" y2="110" stroke="white" stroke-width="3.5" opacity=".8"/>
-            <line x1="301" y1="30" x2="301" y2="190" stroke="white" stroke-width="3.5" stroke-dasharray="14,9" opacity=".75"/>
-          </g>
-          <!-- Divider line -->
+          <defs><pattern id="asp2" patternUnits="userSpaceOnUse" width="4" height="4"><rect width="4" height="4" fill="#1c2130"/><circle cx="2" cy="2" r=".5" fill="#242a38" opacity=".7"/></pattern><clipPath id="lc"><rect width="198" height="240"/></clipPath><clipPath id="rc"><rect x="202" width="198" height="240"/></clipPath></defs>
+          <rect width="400" height="240" fill="url(#asp2)"/>
+          <g clip-path="url(#lc)"><rect x="20" y="30" width="158" height="160" fill="none" stroke="white" stroke-width="4" opacity=".22"/><line x1="99" y1="30" x2="99" y2="190" stroke="white" stroke-width="3" stroke-dasharray="12,9" opacity=".18"/></g>
+          <g clip-path="url(#rc)"><rect x="222" y="30" width="158" height="160" fill="none" stroke="white" stroke-width="5" opacity=".95"/><line x1="301" y1="30" x2="301" y2="190" stroke="white" stroke-width="3.5" stroke-dasharray="14,9" opacity=".75"/></g>
           <line x1="200" y1="0" x2="200" y2="218" stroke="#f97316" stroke-width="3"/>
-          <!-- BEFORE label -->
           <rect x="14" y="12" width="68" height="20" rx="4" fill="rgba(255,255,255,.12)"/>
           <text x="48" y="26" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="white" text-anchor="middle" opacity=".8">BEFORE</text>
-          <!-- AFTER label -->
           <rect x="318" y="12" width="68" height="20" rx="4" fill="#f97316"/>
           <text x="352" y="26" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="white" text-anchor="middle">AFTER</text>
-          <!-- Arrow -->
           <polygon points="196,118 186,108 186,114 176,114 176,122 186,122 186,128" fill="#f97316"/>
-          <!-- Bottom bar -->
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">BEFORE &amp; AFTER</text>
         </svg>
@@ -661,30 +765,16 @@
           <span class="g-area">Pinecrest, FL</span>
         </div>
       </div>
-
-      <!-- Card 3: House Number Stencil -->
+      <!-- Card 3 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="asphalt3" patternUnits="userSpaceOnUse" width="5" height="5">
-              <rect width="5" height="5" fill="#1a1f2e"/>
-              <circle cx="2.5" cy="2.5" r=".6" fill="#22283a" opacity=".9"/>
-              <circle cx="0" cy="0" r=".4" fill="#131720" opacity=".6"/>
-            </pattern>
-          </defs>
-          <rect width="400" height="240" fill="url(#asphalt3)"/>
-          <!-- Curb edge at bottom -->
+          <defs><pattern id="asp3" patternUnits="userSpaceOnUse" width="5" height="5"><rect width="5" height="5" fill="#1a1f2e"/><circle cx="2.5" cy="2.5" r=".6" fill="#22283a" opacity=".9"/></pattern></defs>
+          <rect width="400" height="240" fill="url(#asp3)"/>
           <rect x="0" y="192" width="400" height="26" fill="#374151"/>
           <line x1="0" y1="192" x2="400" y2="192" stroke="#4b5563" stroke-width="2"/>
-          <!-- Address number -->
-          <text x="200" y="170" font-family="Inter,sans-serif" font-size="110" font-weight="900" fill="white" text-anchor="middle" opacity=".95" letter-spacing="-4">1247</text>
-          <!-- Stencil outline effect -->
-          <text x="200" y="170" font-family="Inter,sans-serif" font-size="110" font-weight="900" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1" text-anchor="middle" letter-spacing="-4">1247</text>
-          <!-- Orange accent underline -->
-          <rect x="110" y="182" width="180" height="5" rx="2.5" fill="#f97316" opacity=".85"/>
-          <!-- LTS small watermark -->
-          <text x="370" y="188" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#f97316" text-anchor="end" opacity=".7">LTS</text>
-          <!-- Bottom bar -->
+          <text x="200" y="172" font-family="Inter,sans-serif" font-size="108" font-weight="900" fill="white" text-anchor="middle" opacity=".95" letter-spacing="-4">1247</text>
+          <rect x="110" y="183" width="180" height="5" rx="2.5" fill="#f97316" opacity=".85"/>
+          <text x="372" y="188" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#f97316" text-anchor="end" opacity=".7">LTS</text>
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">HOUSE NUMBER STENCIL</text>
         </svg>
@@ -693,43 +783,20 @@
           <span class="g-area">Key Biscayne, FL</span>
         </div>
       </div>
-
-      <!-- Card 4: Curb Painting -->
+      <!-- Card 4 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="asphalt4" patternUnits="userSpaceOnUse" width="4" height="4">
-              <rect width="4" height="4" fill="#1c2130"/>
-              <circle cx="1.5" cy="1.5" r=".5" fill="#262d3d" opacity=".8"/>
-            </pattern>
-            <linearGradient id="curbGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4b5563"/>
-              <stop offset="100%" stop-color="#374151"/>
-            </linearGradient>
-          </defs>
-          <!-- Road surface -->
-          <rect width="400" height="160" fill="url(#asphalt4)"/>
-          <!-- Curb face (angled) -->
-          <polygon points="0,160 400,160 400,180 0,200" fill="url(#curbGrad)"/>
-          <!-- Curb top -->
+          <defs><pattern id="asp4" patternUnits="userSpaceOnUse" width="4" height="4"><rect width="4" height="4" fill="#1c2130"/><circle cx="1.5" cy="1.5" r=".5" fill="#262d3d" opacity=".8"/></pattern><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4b5563"/><stop offset="100%" stop-color="#374151"/></linearGradient></defs>
+          <rect width="400" height="160" fill="url(#asp4)"/>
+          <polygon points="0,160 400,160 400,180 0,200" fill="url(#cg)"/>
           <rect x="0" y="180" width="400" height="60" fill="#6b7280"/>
-          <!-- Sidewalk texture -->
           <line x1="0" y1="200" x2="400" y2="200" stroke="#9ca3af" stroke-width="1" opacity=".4"/>
-          <line x1="0" y1="215" x2="400" y2="215" stroke="#9ca3af" stroke-width=".5" opacity=".3"/>
           <line x1="100" y1="200" x2="100" y2="240" stroke="#9ca3af" stroke-width=".5" opacity=".3"/>
           <line x1="200" y1="200" x2="200" y2="240" stroke="#9ca3af" stroke-width=".5" opacity=".3"/>
           <line x1="300" y1="200" x2="300" y2="240" stroke="#9ca3af" stroke-width=".5" opacity=".3"/>
-          <!-- Yellow curb painting -->
           <polygon points="0,162 400,162 400,176 0,194" fill="#f59e0b" opacity=".95"/>
-          <!-- White edge highlight on paint -->
-          <line x1="0" y1="162" x2="400" y2="162" stroke="white" stroke-width="1.5" opacity=".5"/>
-          <!-- Paint brush stroke texture -->
           <polygon points="0,162 400,162 400,168 0,186" fill="rgba(255,255,255,.08)"/>
-          <!-- Reflection highlight on road -->
-          <line x1="0" y1="155" x2="400" y2="155" stroke="#f59e0b" stroke-width="1.5" opacity=".15"/>
-          <!-- NO PARKING stencil on curb face -->
           <text x="200" y="173" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="#1a2332" text-anchor="middle" opacity=".8">NO PARKING</text>
-          <!-- Bottom bar -->
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">CURB PAINTING</text>
         </svg>
@@ -738,41 +805,23 @@
           <span class="g-area">Coconut Grove, FL</span>
         </div>
       </div>
-
-      <!-- Card 5: Sports Court / Basketball -->
+      <!-- Card 5 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="asphalt5" patternUnits="userSpaceOnUse" width="4" height="4">
-              <rect width="4" height="4" fill="#1c2130"/>
-              <circle cx="2" cy="2" r=".5" fill="#242a38" opacity=".7"/>
-            </pattern>
-          </defs>
-          <rect width="400" height="240" fill="url(#asphalt5)"/>
-          <!-- Court boundary -->
+          <defs><pattern id="asp5" patternUnits="userSpaceOnUse" width="4" height="4"><rect width="4" height="4" fill="#1c2130"/><circle cx="2" cy="2" r=".5" fill="#242a38" opacity=".7"/></pattern></defs>
+          <rect width="400" height="240" fill="url(#asp5)"/>
           <rect x="20" y="20" width="360" height="200" fill="none" stroke="white" stroke-width="4" rx="2"/>
-          <!-- Half court line -->
           <line x1="200" y1="20" x2="200" y2="220" stroke="white" stroke-width="3"/>
-          <!-- Center circle -->
           <circle cx="200" cy="120" r="30" fill="none" stroke="white" stroke-width="3"/>
-          <!-- Left key (paint area) -->
           <rect x="20" y="80" width="70" height="80" fill="rgba(249,115,22,.2)" stroke="white" stroke-width="3"/>
-          <!-- Left free throw circle -->
           <path d="M 90 80 A 40 40 0 0 1 90 160" fill="none" stroke="white" stroke-width="3"/>
-          <!-- Right key -->
           <rect x="310" y="80" width="70" height="80" fill="rgba(249,115,22,.2)" stroke="white" stroke-width="3"/>
-          <!-- Right free throw circle -->
           <path d="M 310 80 A 40 40 0 0 0 310 160" fill="none" stroke="white" stroke-width="3"/>
-          <!-- Left 3-point arc -->
-          <path d="M 20 60 A 110 110 0 0 1 20 180" fill="none" stroke="white" stroke-width="3" stroke-dasharray="1,0"/>
-          <!-- Right 3-point arc -->
+          <path d="M 20 60 A 110 110 0 0 1 20 180" fill="none" stroke="white" stroke-width="3"/>
           <path d="M 380 60 A 110 110 0 0 0 380 180" fill="none" stroke="white" stroke-width="3"/>
-          <!-- Center dot -->
           <circle cx="200" cy="120" r="4" fill="white"/>
-          <!-- Basket marks -->
           <circle cx="58" cy="120" r="7" fill="none" stroke="#f97316" stroke-width="2.5"/>
           <circle cx="342" cy="120" r="7" fill="none" stroke="#f97316" stroke-width="2.5"/>
-          <!-- Bottom bar -->
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">SPORTS COURT STRIPING</text>
         </svg>
@@ -781,47 +830,26 @@
           <span class="g-area">Kendall, FL</span>
         </div>
       </div>
-
-      <!-- Card 6: Full Package (Seal + Stripe) -->
+      <!-- Card 6 -->
       <div class="gallery-card">
         <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="freshseal" patternUnits="userSpaceOnUse" width="6" height="6">
-              <rect width="6" height="6" fill="#111622"/>
-              <circle cx="1" cy="1" r=".6" fill="#181e2d" opacity=".9"/>
-              <circle cx="4" cy="4" r=".5" fill="#0e1320" opacity=".8"/>
-              <circle cx="2.5" cy="5" r=".3" fill="#1a2033" opacity=".6"/>
-            </pattern>
-            <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="white" stop-opacity=".06"/>
-              <stop offset="50%" stop-color="white" stop-opacity=".02"/>
-              <stop offset="100%" stop-color="white" stop-opacity=".0"/>
-            </linearGradient>
-          </defs>
-          <!-- Fresh-sealed surface (darker, richer black) -->
-          <rect width="400" height="240" fill="url(#freshseal)"/>
-          <rect width="400" height="240" fill="url(#sheen)"/>
-          <!-- Outer border -->
+          <defs><pattern id="fs" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="#111622"/><circle cx="1" cy="1" r=".6" fill="#181e2d" opacity=".9"/><circle cx="4" cy="4" r=".5" fill="#0e1320" opacity=".8"/></pattern><linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="white" stop-opacity=".06"/><stop offset="100%" stop-color="white" stop-opacity="0"/></linearGradient></defs>
+          <rect width="400" height="240" fill="url(#fs)"/>
+          <rect width="400" height="240" fill="url(#sh)"/>
           <rect x="14" y="14" width="372" height="202" fill="none" stroke="white" stroke-width="5" rx="3"/>
-          <!-- Inner divider lines (3 spaces) -->
           <line x1="14" y1="87" x2="386" y2="87" stroke="white" stroke-width="4"/>
           <line x1="14" y1="147" x2="386" y2="147" stroke="white" stroke-width="4"/>
-          <!-- Vertical center line (dashed) -->
           <line x1="200" y1="14" x2="200" y2="216" stroke="white" stroke-width="3" stroke-dasharray="14,10" opacity=".6"/>
-          <!-- Stall numbers -->
-          <text x="107" y="56" font-family="Inter,sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" opacity=".9">1</text>
-          <text x="293" y="56" font-family="Inter,sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" opacity=".9">2</text>
-          <text x="107" y="123" font-family="Inter,sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" opacity=".9">3</text>
-          <text x="293" y="123" font-family="Inter,sans-serif" font-size="28" font-weight="900" fill="white" text-anchor="middle" opacity=".9">4</text>
-          <!-- Arrow indicators -->
+          <text x="107" y="56" font-family="Inter,sans-serif" font-size="26" font-weight="900" fill="white" text-anchor="middle" opacity=".9">1</text>
+          <text x="293" y="56" font-family="Inter,sans-serif" font-size="26" font-weight="900" fill="white" text-anchor="middle" opacity=".9">2</text>
+          <text x="107" y="123" font-family="Inter,sans-serif" font-size="26" font-weight="900" fill="white" text-anchor="middle" opacity=".9">3</text>
+          <text x="293" y="123" font-family="Inter,sans-serif" font-size="26" font-weight="900" fill="white" text-anchor="middle" opacity=".9">4</text>
           <polygon points="107,165 97,180 117,180" fill="white" opacity=".7"/>
           <polygon points="293,165 283,180 303,180" fill="white" opacity=".7"/>
-          <!-- Orange accent dots at corners -->
           <circle cx="14" cy="14" r="5" fill="#f97316"/>
           <circle cx="386" cy="14" r="5" fill="#f97316"/>
           <circle cx="14" cy="216" r="5" fill="#f97316"/>
           <circle cx="386" cy="216" r="5" fill="#f97316"/>
-          <!-- Bottom bar -->
           <rect x="0" y="218" width="400" height="22" fill="rgba(0,0,0,.55)"/>
           <text x="200" y="233" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle" opacity=".9">FULL PACKAGE — SEAL + STRIPE</text>
         </svg>
@@ -830,12 +858,11 @@
           <span class="g-area">Palmetto Bay, FL</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
 <section class="how" id="how">
   <div class="container">
     <div class="how-header">
@@ -868,73 +895,50 @@
   </div>
 </section>
 
-<!-- WHY US -->
+<!-- ══════════════ WHY LTS ══════════════ -->
 <section class="why" id="why">
   <div class="container">
     <div class="why-inner">
       <div class="why-visual">
         <h3 data-en="Miami's Most Trusted Driveway Striping Crew" data-es="El equipo de striping más confiable de Miami">Miami's Most Trusted Driveway Striping Crew</h3>
         <div class="why-stat-grid">
-          <div class="why-stat">
-            <div class="n">500+</div>
-            <div class="l" data-en="Jobs done" data-es="Trabajos realizados">Jobs done</div>
-          </div>
-          <div class="why-stat">
-            <div class="n">4.9★</div>
-            <div class="l" data-en="Google rating" data-es="Calificación Google">Google rating</div>
-          </div>
-          <div class="why-stat">
-            <div class="n">10yr</div>
-            <div class="l" data-en="Experience" data-es="Experiencia">Experience</div>
-          </div>
-          <div class="why-stat">
-            <div class="n">100%</div>
-            <div class="l" data-en="Satisfaction" data-es="Satisfacción">Satisfaction</div>
-          </div>
+          <div class="why-stat"><div class="n">500+</div><div class="l" data-en="Jobs done" data-es="Trabajos realizados">Jobs done</div></div>
+          <div class="why-stat"><div class="n">4.9★</div><div class="l" data-en="Google rating" data-es="Calificación Google">Google rating</div></div>
+          <div class="why-stat"><div class="n">10yr</div><div class="l" data-en="Experience" data-es="Experiencia">Experience</div></div>
+          <div class="why-stat"><div class="n">100%</div><div class="l" data-en="Satisfaction" data-es="Satisfacción">Satisfaction</div></div>
         </div>
       </div>
-
-      <div class="benefits">
+      <div class="why-benefits">
         <div class="section-label" data-en="Why Choose LTS" data-es="Por qué elegir LTS">Why Choose LTS</div>
         <h2 class="section-title" data-en="We're Not General Contractors.<br>We're Specialists." data-es="No somos contratistas generales.<br>Somos especialistas.">We're Not General Contractors.<br>We're Specialists.</h2>
-
-        <div class="benefit">
-          <div class="benefit-icon">
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="white" stroke-width="2"/></svg>
+        <div class="benefits" style="margin-top:28px;">
+          <div class="benefit">
+            <div class="benefit-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke="white" stroke-width="2"/></svg></div>
+            <div>
+              <h4 data-en="Licensed, Insured & Miami-Dade Certified" data-es="Licenciados, asegurados y certificados en Miami-Dade">Licensed, Insured & Miami-Dade Certified</h4>
+              <p data-en="We carry full liability insurance and all required Miami-Dade County contractor certifications. You're fully protected." data-es="Contamos con seguro completo de responsabilidad y todas las certificaciones requeridas por el condado Miami-Dade.">We carry full liability insurance and all required Miami-Dade County contractor certifications. You're fully protected.</p>
+            </div>
           </div>
-          <div>
-            <h4 data-en="Licensed, Insured & Miami-Dade Certified" data-es="Licenciados, asegurados y certificados en Miami-Dade">Licensed, Insured & Miami-Dade Certified</h4>
-            <p data-en="We carry full liability insurance and hold all required Miami-Dade County contractor certifications. You're fully protected." data-es="Contamos con seguro completo de responsabilidad y todas las certificaciones requeridas por el condado Miami-Dade. Estás completamente protegido.">We carry full liability insurance and hold all required Miami-Dade County contractor certifications. You're fully protected.</p>
+          <div class="benefit">
+            <div class="benefit-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div>
+              <h4 data-en="Traffic-Grade Paint That Lasts 3+ Years" data-es="Pintura de grado vial que dura 3+ años">Traffic-Grade Paint That Lasts 3+ Years</h4>
+              <p data-en="We use professional traffic paint built for Florida's sun and rain — not hardware-store paint that fades in months." data-es="Usamos pintura de tráfico profesional diseñada para el sol y la lluvia de Florida, no pintura de ferretería.">We use professional traffic paint built for Florida's sun and rain — not hardware-store paint that fades in months.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="benefit">
-          <div class="benefit-icon">
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="benefit">
+            <div class="benefit-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div>
+              <h4 data-en="Same-Week Appointments Available" data-es="Citas disponibles en la misma semana">Same-Week Appointments Available</h4>
+              <p data-en="Most jobs are completed within 5–7 business days of your quote. We know your time is valuable." data-es="La mayoría de los trabajos se completan en 5–7 días hábiles desde la cotización. Tu tiempo es valioso.">Most jobs are completed within 5–7 business days of your quote. We know your time is valuable.</p>
+            </div>
           </div>
-          <div>
-            <h4 data-en="Traffic-Grade Paint That Lasts 3+ Years" data-es="Pintura de grado vial que dura 3+ años">Traffic-Grade Paint That Lasts 3+ Years</h4>
-            <p data-en="We use professional traffic paint built for Florida's sun and rain — not hardware-store paint that fades in months." data-es="Usamos pintura de tráfico profesional diseñada para el sol y la lluvia de Florida, no pintura de ferretería que se desvanece en meses.">We use professional traffic paint built for Florida's sun and rain — not hardware-store paint that fades in months.</p>
-          </div>
-        </div>
-
-        <div class="benefit">
-          <div class="benefit-icon">
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <div>
-            <h4 data-en="Same-Week Appointments Available" data-es="Citas disponibles en la misma semana">Same-Week Appointments Available</h4>
-            <p data-en="We know your time is valuable. Our streamlined scheduling means most jobs are completed within 5–7 business days of your quote." data-es="Sabemos que tu tiempo es valioso. Nuestro proceso ágil permite que la mayoría de los trabajos se completen en 5–7 días hábiles desde la cotización.">We know your time is valuable. Our streamlined scheduling means most jobs are completed within 5–7 business days of your quote.</p>
-          </div>
-        </div>
-
-        <div class="benefit">
-          <div class="benefit-icon">
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <div>
-            <h4 data-en="Precision Equipment, Clean Results" data-es="Equipo de precisión, resultados impecables">Precision Equipment, Clean Results</h4>
-            <p data-en="We use professional line-striping machines — not rollers or brushes. Every line is laser-straight, edge-to-edge clean." data-es="Usamos máquinas profesionales de striping, no rodillos ni brochas. Cada línea es perfectamente recta, limpia de borde a borde.">We use professional line-striping machines — not rollers or brushes. Every line is laser-straight, edge-to-edge clean.</p>
+          <div class="benefit">
+            <div class="benefit-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M3 10h18M3 14h18" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <div>
+              <h4 data-en="Precision Equipment, Clean Results" data-es="Equipo de precisión, resultados impecables">Precision Equipment, Clean Results</h4>
+              <p data-en="We use professional line-striping machines — not rollers or brushes. Every line is laser-straight, edge-to-edge clean." data-es="Usamos máquinas profesionales de striping. Cada línea es perfectamente recta, limpia de borde a borde.">We use professional line-striping machines — not rollers or brushes. Every line is laser-straight, edge-to-edge clean.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -942,124 +946,110 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
 <section class="testimonials">
   <div class="container">
     <div class="testimonials-header">
       <div class="section-label" data-en="What Our Clients Say" data-es="Lo que dicen nuestros clientes">What Our Clients Say</div>
       <h2 class="section-title" data-en="Real Homeowners. Real Results." data-es="Propietarios reales. Resultados reales.">Real Homeowners. Real Results.</h2>
-      <div class="stars">★★★★★</div>
-      <p style="color:var(--text2);font-size:.9rem;" data-en="4.9 out of 5 based on 130+ Google reviews" data-es="4.9 de 5 basado en más de 130 reseñas en Google">4.9 out of 5 based on 130+ Google reviews</p>
+      <div class="stars" style="margin-top:12px;">★★★★★</div>
+      <p class="rating-note" data-en="4.9 out of 5 based on 130+ Google reviews" data-es="4.9 de 5 basado en más de 130 reseñas en Google">4.9 out of 5 based on 130+ Google reviews</p>
     </div>
     <div class="reviews-grid">
-
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text" data-en="LTS transformed our driveway in Coral Gables. The lines are perfectly straight and the paint quality is outstanding. They finished in under 2 hours and cleaned everything up. Our neighbors keep asking who did it!" data-es="LTS transformó nuestro driveway en Coral Gables. Las líneas están perfectamente rectas y la calidad de la pintura es excelente. Terminaron en menos de 2 horas y limpiaron todo. ¡Los vecinos no paran de preguntar quién lo hizo!">LTS transformed our driveway in Coral Gables. The lines are perfectly straight and the paint quality is outstanding. They finished in under 2 hours and cleaned everything up. Our neighbors keep asking who did it!</p>
+        <p class="review-text" data-en='"LTS transformed our driveway in Coral Gables. The lines are perfectly straight and the paint quality is outstanding. They finished in under 2 hours. Our neighbors keep asking who did it!"' data-es='"LTS transformó nuestro driveway en Coral Gables. Las líneas están perfectamente rectas y la calidad de la pintura es excelente. ¡Los vecinos no paran de preguntar quién lo hizo!"'>"LTS transformed our driveway in Coral Gables. The lines are perfectly straight and the paint quality is outstanding. They finished in under 2 hours. Our neighbors keep asking who did it!"</p>
         <div class="review-author">
           <div class="avatar">MR</div>
-          <div class="author-info">
-            <div class="name">Michael R.</div>
-            <div class="location">Coral Gables, FL</div>
-          </div>
+          <div class="author-info"><div class="name">Michael R.</div><div class="location">Coral Gables, FL</div></div>
         </div>
       </div>
-
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text" data-en="Super professional, super fast, and the price was exactly what they quoted — no surprises. I had them stripe my parking spaces and paint my house number on the curb. Looks amazing. Will definitely use again." data-es="Super profesionales, súper rápidos y el precio fue exactamente lo que cotizaron — sin sorpresas. Les hice marcar mis espacios de estacionamiento y pintar el número de mi casa en el bordillo. Queda increíble. Definitivamente los volvería a contratar.">Super professional, super fast, and the price was exactly what they quoted — no surprises. I had them stripe my parking spaces and paint my house number on the curb. Looks amazing. Will definitely use again.</p>
+        <p class="review-text" data-en='"Super professional, super fast, and the price was exactly what they quoted — no surprises. I had them stripe my parking spaces and paint my house number on the curb. Looks amazing."' data-es='"Super profesionales, súper rápidos y el precio fue exactamente lo que cotizaron — sin sorpresas. Les hice marcar mis espacios y pintar el número. Queda increíble."'>"Super professional, super fast, and the price was exactly what they quoted — no surprises. I had them stripe my parking spaces and paint my house number on the curb. Looks amazing."</p>
         <div class="review-author">
           <div class="avatar">SP</div>
-          <div class="author-info">
-            <div class="name">Sandra P.</div>
-            <div class="location">Pinecrest, FL</div>
-          </div>
+          <div class="author-info"><div class="name">Sandra P.</div><div class="location">Pinecrest, FL</div></div>
         </div>
       </div>
-
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text" data-en="I was selling my home and wanted the driveway to look its best. LTS came out, gave me an honest quote, and the results were incredible. My realtor said it definitely helped with the showing. Highly recommend!" data-es="Estaba vendiendo mi casa y quería que el driveway luciera lo mejor posible. LTS vino, me dio un presupuesto honesto y los resultados fueron increíbles. Mi agente inmobiliaria dijo que definitivamente ayudó con las visitas. ¡Lo recomiendo totalmente!">I was selling my home and wanted the driveway to look its best. LTS came out, gave me an honest quote, and the results were incredible. My realtor said it definitely helped with the showing. Highly recommend!</p>
+        <p class="review-text" data-en='"I was selling my home and wanted the driveway to look its best. LTS gave me an honest quote and the results were incredible. My realtor said it definitely helped with the showing."' data-es='"Estaba vendiendo mi casa y quería que el driveway luciera lo mejor posible. LTS me dio un presupuesto honesto y los resultados fueron increíbles. Mi agente dijo que definitivamente ayudó."'>"I was selling my home and wanted the driveway to look its best. LTS gave me an honest quote and the results were incredible. My realtor said it definitely helped with the showing."</p>
         <div class="review-author">
           <div class="avatar">CL</div>
-          <div class="author-info">
-            <div class="name">Carlos L.</div>
-            <div class="location">Kendall, FL</div>
-          </div>
+          <div class="author-info"><div class="name">Carlos L.</div><div class="location">Kendall, FL</div></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- SERVICE AREAS -->
+<!-- ══════════════ SERVICE AREAS ══════════════ -->
 <section class="areas" id="areas">
   <div class="container">
     <div class="areas-header">
       <div class="section-label" data-en="Coverage" data-es="Cobertura">Coverage</div>
       <h2 class="section-title" data-en="We Serve All of Miami-Dade & Broward" data-es="Servimos todo Miami-Dade y Broward">We Serve All of Miami-Dade & Broward</h2>
-      <p class="section-sub" style="margin: 12px auto 0; text-align:center;" data-en="From Key Biscayne to Hialeah, from Aventura to Homestead — LTS comes to you." data-es="Desde Key Biscayne hasta Hialeah, desde Aventura hasta Homestead — LTS llega a ti.">From Key Biscayne to Hialeah, from Aventura to Homestead — LTS comes to you.</p>
+      <p class="section-sub" data-en="From Key Biscayne to Hialeah, from Aventura to Homestead — LTS comes to you." data-es="Desde Key Biscayne hasta Hialeah, desde Aventura hasta Homestead — LTS llega a ti.">From Key Biscayne to Hialeah, from Aventura to Homestead — LTS comes to you.</p>
     </div>
     <div class="areas-grid">
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Coral Gables</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Pinecrest</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Key Biscayne</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Coconut Grove</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Kendall</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Palmetto Bay</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> South Miami</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Doral</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Hialeah</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Aventura</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Homestead</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Fort Lauderdale</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Miramar</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Pembroke Pines</div>
-      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Miami Beach</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Coral Gables</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Pinecrest</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Key Biscayne</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Coconut Grove</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Kendall</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Palmetto Bay</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>South Miami</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Doral</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Hialeah</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Aventura</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Homestead</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Fort Lauderdale</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Miramar</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Pembroke Pines</div>
+      <div class="area-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Miami Beach</div>
     </div>
   </div>
 </section>
 
-<!-- CTA SECTION -->
+<!-- ══════════════ CTA ══════════════ -->
 <section class="cta-section">
   <div class="container">
     <h2 data-en="Ready for <span>Perfect Lines?</span>" data-es="¿Listo para <span>líneas perfectas?</span>">Ready for <span>Perfect Lines?</span></h2>
-    <p data-en="Join 500+ Miami homeowners who trust LTS for their driveway. Get your free quote today." data-es="Únete a más de 500 propietarios en Miami que confían en LTS para su driveway. Obtén tu cotización gratuita hoy.">Join 500+ Miami homeowners who trust LTS for their driveway. Get your free quote today.</p>
+    <p data-en="Join 500+ Miami homeowners who trust LTS for their driveway. Get your free quote today." data-es="Únete a más de 500 propietarios en Miami que confían en LTS. Obtén tu cotización gratuita hoy.">Join 500+ Miami homeowners who trust LTS for their driveway. Get your free quote today.</p>
     <div class="cta-actions">
-      <a href="#contact" class="btn btn-primary" style="font-size:1.05rem;padding:16px 40px;" data-en="Get Free Quote →" data-es="Cotización Gratis →">Get Free Quote →</a>
+      <a href="#contact" class="btn btn-primary" style="padding:16px 36px;font-size:1.05rem;" data-en="Get Free Quote →" data-es="Cotización Gratis →">Get Free Quote →</a>
       <div class="cta-phone">
         <div class="cta-phone-icon">
-          <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="white" stroke-width="2"/></svg>
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="white" stroke-width="2"/></svg>
         </div>
-        <a href="tel:+13055550198" style="color:white;">(305) 555-0198</a>
+        <a href="tel:+14053143025" style="color:white;">(405) 314-3025</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══════════════ FOOTER ══════════════ -->
 <footer>
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="logo">
-          <svg class="logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="logo-svg" viewBox="0 0 48 48" fill="none">
             <rect x="2" y="30" width="44" height="14" rx="3" fill="#f97316"/>
             <rect x="6" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
             <rect x="20" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
             <rect x="34" y="35.5" width="8" height="3" rx="1.5" fill="white" opacity=".9"/>
-            <text x="5" y="25" font-family="Inter, sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-0.5">LTS</text>
+            <text x="5" y="25" font-family="Inter,sans-serif" font-weight="900" font-size="15" fill="white" letter-spacing="-0.5">LTS</text>
             <rect x="2" y="27" width="44" height="2" rx="1" fill="#f97316" opacity=".4"/>
           </svg>
           <div class="logo-text">
             <div class="brand" style="color:white;">LTS</div>
-            <div class="tagline">Line & Traffic Solutions</div>
+            <div class="tagline" style="display:block;">Line & Traffic Solutions</div>
           </div>
         </div>
         <p data-en="Miami's residential driveway striping specialists. Professional, fast, and built to last in Florida's climate." data-es="Especialistas en demarcación de driveways residenciales en Miami. Profesionales, rápidos y diseñados para durar en el clima de Florida.">Miami's residential driveway striping specialists. Professional, fast, and built to last in Florida's climate.</p>
       </div>
-
       <div class="footer-col">
         <h4 data-en="Services" data-es="Servicios">Services</h4>
         <ul>
@@ -1070,29 +1060,25 @@
           <li><a href="#services" data-en="Full Package" data-es="Paquete completo">Full Package</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4 data-en="Company" data-es="Empresa">Company</h4>
         <ul>
           <li><a href="#why" data-en="About Us" data-es="Nosotros">About Us</a></li>
-          <li><a href="#" data-en="Portfolio" data-es="Portafolio">Portfolio</a></li>
-          <li><a href="#" data-en="Blog" data-es="Blog">Blog</a></li>
+          <li><a href="#gallery" data-en="Our Work" data-es="Nuestro trabajo">Our Work</a></li>
           <li><a href="#contact" data-en="Contact" data-es="Contacto">Contact</a></li>
         </ul>
       </div>
-
       <div class="footer-col">
         <h4 data-en="Contact" data-es="Contacto">Contact</h4>
         <ul>
-          <li><a href="tel:+13055550198">📞 (305) 555-0198</a></li>
+          <li><a href="tel:+14053143025">📞 (405) 314-3025</a></li>
           <li><a href="mailto:info@ltsmiami.com">✉️ info@ltsmiami.com</a></li>
           <li><a href="#">📍 Miami, FL 33101</a></li>
-          <li><a href="#" data-en="Mon–Fri 7am–6pm" data-es="Lun–Vie 7am–6pm">Mon–Fri 7am–6pm</a></li>
-          <li><a href="#" data-en="Sat 8am–2pm" data-es="Sáb 8am–2pm">Sat 8am–2pm</a></li>
+          <li><a data-en="Mon–Fri 7am–6pm" data-es="Lun–Vie 7am–6pm">Mon–Fri 7am–6pm</a></li>
+          <li><a data-en="Sat 8am–2pm" data-es="Sáb 8am–2pm">Sat 8am–2pm</a></li>
         </ul>
       </div>
     </div>
-
     <div class="footer-bottom">
       <p data-en="© 2025 LTS – Line & Traffic Solutions. All rights reserved." data-es="© 2025 LTS – Line & Traffic Solutions. Todos los derechos reservados.">© 2025 LTS – Line & Traffic Solutions. All rights reserved.</p>
       <div class="license-badge" data-en="🔒 Licensed & Insured · Miami-Dade County" data-es="🔒 Licenciados y asegurados · Condado Miami-Dade">🔒 Licensed & Insured · Miami-Dade County</div>
@@ -1100,10 +1086,10 @@
   </div>
 </footer>
 
-<!-- STICKY PHONE (mobile) -->
-<a href="tel:+13055550198" class="sticky-phone" data-en="📞 Call for Free Quote: (305) 555-0198" data-es="📞 Llama gratis: (305) 555-0198">📞 Call for Free Quote: (305) 555-0198</a>
+<!-- STICKY MOBILE BAR -->
+<a href="tel:+14053143025" class="sticky-phone" data-en="📞 Call for Free Quote: (405) 314-3025" data-es="📞 Llama gratis: (405) 314-3025">📞 Call for Free Quote: (405) 314-3025</a>
 
-<!-- NOTIFICATION (form success) -->
+<!-- NOTIFICATION -->
 <div class="notification" id="notif">
   <div class="notif-icon">✅</div>
   <div class="notif-text">
@@ -1113,12 +1099,11 @@
 </div>
 
 <script>
-  // ── LANGUAGE SYSTEM ──
-  // Stores all translatable elements with their text snapshots at parse time
+  // ══════════════════════════════════════
+  //  TRANSLATION SYSTEM
+  // ══════════════════════════════════════
   let currentLang = 'en';
-
-  // Cache built once on load: [{el, en, es}]
-  const transCache = [];
+  let transCache = [];
 
   function buildCache() {
     document.querySelectorAll('[data-en]').forEach(el => {
@@ -1137,7 +1122,7 @@
 
     transCache.forEach(({ el, en, es }) => {
       const val = lang === 'es' ? es : en;
-      if (val === null || val === undefined) return;
+      if (!val && val !== '') return;
       const tag = el.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') {
         el.placeholder = val;
@@ -1151,7 +1136,30 @@
     document.documentElement.setAttribute('lang', lang);
   }
 
-  // ── FORM SUBMIT ──
+  // ══════════════════════════════════════
+  //  HAMBURGER NAV
+  // ══════════════════════════════════════
+  function toggleNav() {
+    const nav = document.getElementById('main-nav');
+    const btn = document.getElementById('nav-toggle');
+    const isOpen = nav.classList.contains('open');
+    nav.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+
+  // Close nav on link click (mobile)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#main-nav a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('main-nav').classList.remove('open');
+        document.getElementById('nav-toggle').classList.remove('open');
+      });
+    });
+  });
+
+  // ══════════════════════════════════════
+  //  FORM
+  // ══════════════════════════════════════
   function submitForm(e) {
     e.preventDefault();
     const notif = document.getElementById('notif');
@@ -1160,29 +1168,13 @@
     e.target.reset();
   }
 
-  // ── NAV TOGGLE ──
-  function toggleNav() {
-    const nav = document.getElementById('main-nav');
-    const open = nav.dataset.open === 'true';
-    if (open) {
-      nav.removeAttribute('style');
-      nav.dataset.open = 'false';
-    } else {
-      Object.assign(nav.style, {
-        display: 'flex', flexDirection: 'column', position: 'absolute',
-        top: '70px', left: '0', right: '0', background: '#0d3b73',
-        padding: '20px 24px', gap: '16px', boxShadow: '0 8px 20px rgba(0,0,0,.2)',
-        zIndex: '999'
-      });
-      nav.dataset.open = 'true';
-    }
-  }
-
-  // ── SMOOTH ANCHOR ──
+  // ══════════════════════════════════════
+  //  SMOOTH SCROLL
+  // ══════════════════════════════════════
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
-      if (id === '#') return;
+      if (!id || id === '#') return;
       const target = document.querySelector(id);
       if (target) {
         e.preventDefault();
@@ -1191,22 +1183,27 @@
     });
   });
 
-  // ── SCROLL ANIMATION ──
+  // ══════════════════════════════════════
+  //  SCROLL ANIMATION
+  // ══════════════════════════════════════
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
 
-  // ── INIT ──
+  // ══════════════════════════════════════
+  //  INIT
+  // ══════════════════════════════════════
   document.addEventListener('DOMContentLoaded', () => {
     buildCache();
 
     document.getElementById('btn-en').addEventListener('click', () => applyLang('en'));
     document.getElementById('btn-es').addEventListener('click', () => applyLang('es'));
+    document.getElementById('nav-toggle').addEventListener('click', toggleNav);
 
     document.querySelectorAll('.service-card, .step, .benefit, .review-card, .area-pill, .gallery-card').forEach(el => {
       el.style.opacity = '0';
@@ -1216,6 +1213,5 @@
     });
   });
 </script>
-
 </body>
 </html>
